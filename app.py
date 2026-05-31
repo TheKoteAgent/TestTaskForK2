@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from models import db, Client, Product, Order, OrderItem
 
 app = Flask(__name__)
@@ -10,6 +10,10 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
+
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
 
 @app.route('/api/clients/create', methods=['POST'])
 def create_client():
